@@ -19,10 +19,13 @@ fi
 mkdir $1
 cd $1
 py -m venv env
+os=""
 if [[ -e env/bin ]]; then
     source env/bin/activate
+	os="Mac"
 else
     source env/Scripts/activate
+	os="Windows"
 fi
 
 pip install Flask
@@ -83,7 +86,7 @@ from sys import argv
 
 port = 5000
 if len(argv) > 1:
-    port = int(argv[1])
+	port = int(argv[1])
 
 r = requests.get('http://localhost:{}/'.format(port))
 print(r.text)
@@ -96,7 +99,13 @@ mkdir static/img
 
 echo "----------------------------"
 echo "$1 created. To get started,"
-echo "cd $1 && activate"
+if [[ -n $os && $os == "Mac" ]]; then
+	echo "cd $1 && source env/bin/activate"
+elif [[ -n $os && $os == "Windows" ]]; then
+	echo "cd $1 && source env/Scripts/activate"
+else
+	echo "Something went horribly wrong"
+fi
 echo "Then, to run your app,"
 echo "flask run"
 
