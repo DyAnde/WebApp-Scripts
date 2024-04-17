@@ -8,3 +8,7 @@ It also has some extra things from WAD 2023 such as database integration.
 
 `makehtml` is the second script.
 It creates a template HTML page to be used by `app.py` in order to display a "proper" web page.
+
+
+Feel free to modify these however you wish!
+[Here's a helpful Bash scripting cheat sheet](https://devhints.io/bash)
