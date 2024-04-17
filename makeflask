@@ -3,22 +3,22 @@
 # This is from WAD Spring 2023.
 
 if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 <app-name>"
-  exit 1
+	echo "Usage: $0 <app-name>"
+	exit 1
 fi
 
 if [[ -e $1 ]]; then
-  read -p "$1 already exists. Do you want to overwrite (y/n)? " ans
-  if [[ $ans == "y" ]]; then
-    rm -rf $1
-  else
-    exit 1
-  fi
+	read -p "$1 already exists. Do you want to overwrite (y/n)? " and
+	if [[ $ans == "y" ]]; then
+		rm -rf $1
+	else
+		exit 1
+	fi
 fi
 
 mkdir $1
 cd $1
-py -m venv env
+python3 -m venv env
 os=""
 if [[ -e env/bin ]]; then
     source env/bin/activate
@@ -48,7 +48,7 @@ from app import db
 
 # Example class
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=False, nullable=False)
 
@@ -99,7 +99,9 @@ mkdir static/img
 
 echo "----------------------------"
 echo "$1 created. To get started,"
-if [[ -n $os && $os == "Mac" ]]; then
+if [[ -z $os ]]; then
+	echo "os variable is empty"
+elif [[ -n $os && $os == "Mac" ]]; then
 	echo "cd $1 && source env/bin/activate"
 elif [[ -n $os && $os == "Windows" ]]; then
 	echo "cd $1 && source env/Scripts/activate"
@@ -108,4 +110,3 @@ else
 fi
 echo "Then, to run your app,"
 echo "flask run"
-
